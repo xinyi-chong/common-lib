@@ -1,0 +1,54 @@
+package apperrors
+
+import (
+	"errors"
+	locale "github.com/xinyi-chong/common-lib/i18n"
+)
+
+type Error struct {
+	MessageKey   string              // i18n key (e.g., "user_not_found")
+	HTTPStatus   int                 // HTTP status code
+	Err          error               // Wrapped error, if any
+	TemplateData locale.TemplateData // For dynamic i18n translation
+	Op           string              // Operation name for logging or debugging
+}
+
+func New(msgKey string, status int) *Error {
+	return &Error{MessageKey: msgKey, HTTPStatus: status} //, Err: errors.New(code)
+}
+
+func Is(err error, target *Error) bool {
+	var e *Error
+	if errors.As(err, &e) {
+		return e.MessageKey == target.MessageKey
+	}
+	return false
+}
+
+func (e *Error) Error() string {
+	var opPrefix string
+	if e.Op != "" {
+		opPrefix = "[" + e.Op + "] "
+	}
+
+	errStr := e.MessageKey
+
+	if e.Err != nil {
+		var appErr *Error
+		if !errors.As(e.Err, &appErr) {
+			errStr = e.Err.Error()
+		}
+	}
+
+	return opPrefix + errStr
+}
+
+func (e *Error) WithOp(op string) *Error {
+	e.Op = op
+	return e
+}
+
+func (e *Error) Wrap(err error) *Error {
+	e.Err = err
+	return e
+}
