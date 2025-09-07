@@ -23,4 +23,6 @@ var (
 	ErrXConflict   = NewWithDefaultField("x_already_exists", http.StatusConflict)
 	ErrInvalidX    = NewWithDefaultField("invalid_x", http.StatusBadRequest)
 	ErrIncorrectX  = NewWithDefaultField("incorrect_x", http.StatusBadRequest)
+	ErrXMin        = NewWithDefaultField("x_min", http.StatusBadRequest)
+	ErrXMax        = NewWithDefaultField("x_max", http.StatusBadRequest)
 )

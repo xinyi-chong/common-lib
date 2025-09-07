@@ -11,6 +11,8 @@
     x_already_exists = "{{.Field}}已存在"
     invalid_x = "无效的{{.Field}}"
     incorrect_x = "{{.Field}}不正确"
+    x_min = "{{.Field}}至少需要{{.Value}}个字符"
+    x_max = "{{.Field}}最多允许{{.Value}}个字符"
 
 [success]
     session_refreshed = "会话已刷新"

@@ -11,6 +11,8 @@
     x_already_exists = "{{.Field}} already exists"
     invalid_x = "Invalid {{.Field}}"
     incorrect_x = "Incorrect {{.Field}}"
+    x_min = "{{.Field}} must be at least {{.Value}} characters long"
+    x_max = "{{.Field}} must be at most {{.Value}} characters long"
 
 [success]
     session_refreshed = "Session refreshed"

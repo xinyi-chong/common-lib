@@ -19,7 +19,7 @@ func New(msgKey string, status int) *Error {
 }
 
 func NewWithDefaultField(msgKey string, status int) *Error {
-	return New(msgKey, status).WithField(consts.DefaultField)
+	return New(msgKey, status).WithField(consts.DefaultField).WithValue("0")
 }
 
 func Is(err error, target *Error) bool {
@@ -63,6 +63,14 @@ func (e *Error) WithField(field string) *Error {
 		e.TemplateData = locale.TemplateData{}
 	}
 	e.TemplateData["Field"] = field
+	return e
+}
+
+func (e *Error) WithValue(value string) *Error {
+	if e.TemplateData == nil {
+		e.TemplateData = locale.TemplateData{}
+	}
+	e.TemplateData["Value"] = value
 	return e
 }
 
