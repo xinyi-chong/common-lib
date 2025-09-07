@@ -2,11 +2,12 @@ package apperrors
 
 import (
 	"errors"
+	"github.com/xinyi-chong/common-lib/consts"
 	locale "github.com/xinyi-chong/common-lib/i18n"
 )
 
 type Error struct {
-	MessageKey   string              // i18n key (e.g., "user_not_found")
+	MessageKey   string              // i18n key
 	HTTPStatus   int                 // HTTP status code
 	Err          error               // Wrapped error, if any
 	TemplateData locale.TemplateData // For dynamic i18n translation
@@ -14,7 +15,11 @@ type Error struct {
 }
 
 func New(msgKey string, status int) *Error {
-	return &Error{MessageKey: msgKey, HTTPStatus: status} //, Err: errors.New(code)
+	return &Error{MessageKey: msgKey, HTTPStatus: status}
+}
+
+func NewWithDefaultField(msgKey string, status int) *Error {
+	return New(msgKey, status).WithField(consts.DefaultField)
 }
 
 func Is(err error, target *Error) bool {
@@ -50,5 +55,23 @@ func (e *Error) WithOp(op string) *Error {
 
 func (e *Error) Wrap(err error) *Error {
 	e.Err = err
+	return e
+}
+
+func (e *Error) WithField(field string) *Error {
+	if e.TemplateData == nil {
+		e.TemplateData = locale.TemplateData{}
+	}
+	e.TemplateData["Field"] = field
+	return e
+}
+
+func (e *Error) WithTemplateData(data locale.TemplateData) *Error {
+	if e.TemplateData == nil {
+		e.TemplateData = locale.TemplateData{}
+	}
+	for k, v := range data {
+		e.TemplateData[k] = v
+	}
 	return e
 }

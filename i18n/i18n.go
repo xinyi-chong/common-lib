@@ -3,6 +3,7 @@ package locale
 import (
 	"context"
 	"embed"
+	"fmt"
 	"github.com/BurntSushi/toml"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"github.com/xinyi-chong/common-lib/consts"
@@ -58,28 +59,34 @@ func GetLocalizer(langs ...string) *i18n.Localizer {
 	return i18n.NewLocalizer(bundle, langs...)
 }
 
-func Translate(c context.Context, category Category, messageID string, templateData ...TemplateData) string {
+func Translate(c context.Context, category Category, messageID string, templateData TemplateData) string {
 	localizer, ok := c.Value(consts.Localizer).(*i18n.Localizer)
 	if !ok || localizer == nil {
 		logger.Error("Translate: no localizer found in context")
 		return messageID
 	}
 
-	var data TemplateData
-	if len(templateData) > 0 {
-		data = templateData[0]
+	for key, val := range templateData {
+		if fieldName, ok := val.(string); ok {
+			fieldID := "field." + fieldName
+			translatedField, err := localizer.Localize(&i18n.LocalizeConfig{
+				MessageID: fieldID,
+			})
+			if err != nil {
+				logger.Warn("Translate: field translation missing", zap.String("fieldID", fieldID), zap.Error(err))
+				translatedField = fieldName
+			}
+			templateData[key] = translatedField
+		}
 	}
 
+	fullMessageID := fmt.Sprintf("%s.%s", category, messageID)
 	message, err := localizer.Localize(&i18n.LocalizeConfig{
-		MessageID:    string(category) + "." + messageID,
-		TemplateData: data,
+		MessageID:    fullMessageID,
+		TemplateData: templateData,
 	})
 	if err != nil {
-		logger.Warn(
-			"Translate: translation missing",
-			zap.String("messageID", messageID),
-			zap.Error(err),
-		)
+		logger.Warn("Translate: translation missing", zap.String("fullMessageID", fullMessageID), zap.Error(err))
 		return messageID
 	}
 	return message

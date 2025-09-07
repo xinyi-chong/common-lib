@@ -23,3 +23,13 @@ const (
 const (
 	RedisAuthBlacklistPrefix = "auth:blacklist:"
 )
+
+// Fields
+const (
+	DefaultField         = "default"
+	UserField            = "user"
+	EmailField           = "email"
+	PasswordField        = "password"
+	UsernameField        = "username"
+	EmailOrUsernameField = "email_or_username"
+)

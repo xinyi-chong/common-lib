@@ -2,17 +2,20 @@ package success
 
 import "net/http"
 
+// General success
 var (
-	// Auth
 	SessionRefreshed = New("session_refreshed", http.StatusOK)
 	Registered       = New("registered", http.StatusCreated)
 	LoggedIn         = New("logged_in", http.StatusOK)
 	LoggedOut        = New("logged_out", http.StatusOK)
-	PasswordChanged  = New("password_changed", http.StatusOK)
-	PasswordReset    = New("password_reset", http.StatusOK)
+)
 
-	// User
-	UserUpdated = New("user_updated", http.StatusOK)
-	UserDeleted = New("user_deleted", http.StatusOK)
-	UserFound   = New("user_found", http.StatusFound)
+// Field-related success
+var (
+	XFound   = New("X_found", http.StatusFound)
+	XUpdated = New("X_updated", http.StatusOK)
+	XDeleted = New("X_deleted", http.StatusOK)
+	XCreated = New("x_created", http.StatusCreated)
+	XChanged = New("x_changed", http.StatusOK)
+	XReset   = New("x_reset", http.StatusOK)
 )
