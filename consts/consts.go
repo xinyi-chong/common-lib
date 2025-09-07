@@ -4,7 +4,7 @@ const (
 	Localizer = "localizer"
 )
 
-// Context keys used in Gin/Go contexts
+// Context keys
 const (
 	CtxAccessToken = "access_token"
 	CtxUserID      = "user_id"
@@ -12,9 +12,14 @@ const (
 	CtxUserEmail   = "email"
 )
 
-// Standardized headers for forwarding user claims to downstream services
+// HTTP headers
 const (
-	HeaderUserID    = "X-User-Id"
+	HeaderUserID    = "X-User-ID"
 	HeaderUsername  = "X-User-Name"
 	HeaderUserEmail = "X-User-Email"
+)
+
+// Redis prefixes
+const (
+	RedisAuthBlacklistPrefix = "auth:blacklist:"
 )
