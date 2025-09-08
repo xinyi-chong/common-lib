@@ -12,10 +12,10 @@ var (
 
 // Field-related success
 var (
-	XFound   = New("X_found", http.StatusFound)
-	XUpdated = New("X_updated", http.StatusOK)
-	XDeleted = New("X_deleted", http.StatusOK)
-	XCreated = New("x_created", http.StatusCreated)
-	XChanged = New("x_changed", http.StatusOK)
-	XReset   = New("x_reset", http.StatusOK)
+	XFound   = NewWithDefaultField("X_found", http.StatusFound)
+	XUpdated = NewWithDefaultField("X_updated", http.StatusOK)
+	XDeleted = NewWithDefaultField("X_deleted", http.StatusOK)
+	XCreated = NewWithDefaultField("x_created", http.StatusCreated)
+	XChanged = NewWithDefaultField("x_changed", http.StatusOK)
+	XReset   = NewWithDefaultField("x_reset", http.StatusOK)
 )
