@@ -19,7 +19,7 @@ func NewWithDefaultField(msgKey string, status int) *Success {
 	return New(msgKey, status).WithField(consts.DefaultField).WithValue("0")
 }
 
-func (s *Success) WithField(field string) *Success {
+func (s *Success) WithField(field consts.Field) *Success {
 	if s.TemplateData == nil {
 		s.TemplateData = locale.TemplateData{}
 	}

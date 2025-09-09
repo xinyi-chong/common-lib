@@ -58,7 +58,7 @@ func (e *Error) Wrap(err error) *Error {
 	return e
 }
 
-func (e *Error) WithField(field string) *Error {
+func (e *Error) WithField(field consts.Field) *Error {
 	if e.TemplateData == nil {
 		e.TemplateData = locale.TemplateData{}
 	}
