@@ -31,5 +31,5 @@ const (
 	EmailField           = "email"
 	PasswordField        = "password"
 	UsernameField        = "username"
-	EmailOrUsernameField = "email_or_username"
+	EmailOrPasswordField = "email_or_password"
 )
