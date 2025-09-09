@@ -8,5 +8,5 @@ const (
 	EmailField           Field = "email"
 	PasswordField        Field = "password"
 	UsernameField        Field = "username"
-	EmailOrUsernameField Field = "email_or_username"
+	EmailOrPasswordField Field = "email_or_password"
 )
