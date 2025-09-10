@@ -3,6 +3,7 @@ package validation
 import (
 	"errors"
 	"github.com/stretchr/testify/assert"
+	"github.com/xinyi-chong/common-lib/consts"
 	apperrors "github.com/xinyi-chong/common-lib/errors"
 	"testing"
 )
@@ -67,12 +68,12 @@ func TestValidationCheck(t *testing.T) {
 			switch tt.name {
 			case "Missing email", "Invalid email":
 				t.Logf("tt.name: %#v", tt.name)
-				assert.Equal(t, "email", apperr.TemplateData["Field"])
+				assert.Equal(t, consts.Field("email"), apperr.TemplateData["Field"])
 			case "Password too short":
-				assert.Equal(t, "password", apperr.TemplateData["Field"])
+				assert.Equal(t, consts.Field("password"), apperr.TemplateData["Field"])
 				assert.Equal(t, "8", apperr.TemplateData["Value"])
 			case "Missing username":
-				assert.Equal(t, "username", apperr.TemplateData["Field"])
+				assert.Equal(t, consts.Field("username"), apperr.TemplateData["Field"])
 			}
 		})
 	}
